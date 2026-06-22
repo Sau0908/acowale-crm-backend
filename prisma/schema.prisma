@@ -1,0 +1,37 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DATABASE_URL")
+}
+
+
+enum FeedbackCategory {
+  Product
+  Feature_Request
+  UI_UX
+  Support
+  Billing
+  Other
+}
+
+enum FeedbackStatus {
+  Open
+  In_Progress
+  Resolved
+}
+
+model Feedback {
+  id        String           @id @default(uuid())
+  name      String?
+  email     String?
+  category  FeedbackCategory
+  comment   String
+  status    FeedbackStatus   @default(Open)
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+}
+
